@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 declare var PagSeguroDirectPayment: any;
 
@@ -30,7 +30,7 @@ export class PagseguroService {
     console.log(PagSeguroDirectPayment);
   }
 
-  // OBTEM A BANDEIRA DO CARTÃO
+  // OBTÉM A BANDEIRA DO CARTÃO
   protected getCardBrand(cardNumber: string) : Promise<any> {
     return new Promise((resolve, reject) => {
       PagSeguroDirectPayment.getBrand({
@@ -43,6 +43,7 @@ export class PagseguroService {
     })
   }
 
+  // OBTÉM OS MÉTODOS DE PAGAMENTO DISPONÍVEIS
   protected getPaymentMethods(amount: number): Promise<any> {
     return new Promise((resolve, reject) => {
       PagSeguroDirectPayment.getPaymentMethods({
@@ -57,6 +58,7 @@ export class PagseguroService {
     })
   }
 
+  // OBTÉM A HASH DO COMPRADOR
   protected onSenderHashReady() : Promise<string> {
     return new Promise((resolve, reject) => {
       PagSeguroDirectPayment.onSenderHashReady(function(response){
@@ -70,7 +72,7 @@ export class PagseguroService {
     })
   }
 
-  // Retorna as opções de parcelamento disponíveis
+  // RETORNA AS OPÇÕES DE PARCELAMENTO DISPONÍVEIS
   protected getInstallments(amount: number, maxInstallmentNoInterest: number, brand: string): Promise<any> {
     return new Promise((resolve, reject) => {
       PagSeguroDirectPayment.getInstallments({
@@ -87,13 +89,14 @@ export class PagseguroService {
     })
   }
 
+  // RETORNA A TOKEN DO CARTÃO
   protected createCardToken(cardNumber: string, brand: string, cvv: string, expirationMonth: string, expirationYear: string) : Promise<any> {
     return new Promise((resolve, reject) => {
       PagSeguroDirectPayment.createCardToken({
-        cardNumber, // Número do cartão de crédito
+        cardNumber,             // Número do cartão de crédito
         brand,                  // Bandeira do cartão
-        cvv,                     // CVV do cartão
-        expirationMonth,          // Mês da expiração do cartão
+        cvv,                    // CVV do cartão
+        expirationMonth,        // Mês da expiração do cartão
         expirationYear,         // Ano da expiração do cartão, é necessário os 4 dígitos.
         success: function(response) {          
           resolve(response.card.token);
@@ -104,12 +107,4 @@ export class PagseguroService {
       });
     })
   }
-}
-
-export class UserData {
-  hashComprador: string
-  sessionId: string
-  tokenCard: string
-  cardNumber: string
-  bandeira: string
 }

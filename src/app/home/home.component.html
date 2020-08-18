@@ -1,13 +1,16 @@
-<h1>Menu</h1>
+<div class="container">
+    <h1>Menu</h1>
 
-<button (click)="session()">{{ btnText }}</button>
-<button (click)="senderHash()">Obter Hash</button>
-<button (click)="cardBrand()">Bandeira do Cartão</button>
-<button (click)="getCardToken()">Obter Token do Cartão</button>
-
-<br><br>
-
-<label>Resultado: </label> <br>
-{{ temp | json }}
+    <button [(disabled)]="isLoading" mat-flat-button color="primary" (click)="session()">Configurar Session</button>
+    <button [(disabled)]="isLoading" mat-flat-button color="primary" (click)="senderHash()">Obter Hash</button>
+    <button [(disabled)]="isLoading" mat-flat-button color="primary" (click)="cardBrand()">Bandeira do Cartão</button>
+    <button [(disabled)]="isLoading" mat-flat-button color="primary" (click)="getCardToken()">Obter Token do Cartão</button>
+    
+    <br><br>
+    
+    <label><b>Resultado:</b> </label> <br>
+    <code>{{ temp | json }}</code>
+    
+</div>
 
 

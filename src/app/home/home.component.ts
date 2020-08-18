@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PagseguroService, UserData } from '../../services/pagseguro.service';
+import { PagseguroService } from '../../services/pagseguro.service';
 import { environment } from 'src/environments/environment';
+import { UserData } from '../../share/user'
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent extends PagseguroService implements OnInit {
   
-  btnText: string = "Desligado"
+  isLoading = true;
 
   temp: UserData = new UserData();
 
@@ -19,35 +20,47 @@ export class HomeComponent extends PagseguroService implements OnInit {
 
   ngOnInit(): void {
     this.initPagseguro().then(res => {
-      this.btnText = "Obter SessionID"
+      this.isLoading = false;
     });
   }
 
   session() {
-    this.setSessionId("6d9d372a26f44c56bb549b1e2343d7b6")
-    this.temp.sessionId = "6d9d372a26f44c56bb549b1e2343d7b6"
+    this.setSessionId("85bd0607b03246cb8931fabce67168ea")
+    this.temp.sessionId = "85bd0607b03246cb8931fabce67168ea"
   }
 
   cardBrand() {
+    this.isLoading = true;
+
     this.getCardBrand("5257782603874647").then((brand) => {
       console.log(brand)
       this.temp.bandeira = brand;
+      this.isLoading = false 
     }, e => {
       console.log(e)
+      this.isLoading = false 
     })
   }
 
   senderHash() {
+    this.isLoading = true;
+    
     this.onSenderHashReady().then(hash => {
       this.temp.hashComprador = hash;
-      console.log(hash)
+      this.isLoading = false;
+    }, e => {
+      this.isLoading = false;
     })
   }
 
   getCardToken() {
+    this.isLoading = true;
+
     this.createCardToken('4111111111111111', 'visa', '013', '12', '2026').then(token => {
       this.temp.tokenCard = token;
-      console.log(token)
+      this.isLoading = false;
+    }, e => {
+      this.isLoading = false;
     })
   }
 }
