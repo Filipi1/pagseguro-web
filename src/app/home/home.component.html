@@ -1,0 +1,13 @@
+<h1>Menu</h1>
+
+<button (click)="session()">{{ btnText }}</button>
+<button (click)="senderHash()">Obter Hash</button>
+<button (click)="cardBrand()">Bandeira do Cartão</button>
+<button (click)="getCardToken()">Obter Token do Cartão</button>
+
+<br><br>
+
+<label>Resultado: </label> <br>
+{{ temp | json }}
+
+

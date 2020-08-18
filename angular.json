@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pagseguro"
+    }
+  },
+  "defaultProject": "pagseguro",
+  "cli": {
+    "analytics": "b1be839e-6230-4eaa-bf4e-6ca0e5512be4"
+  }
 }
